@@ -1,7 +1,7 @@
 import React from 'react';
 import '../stylesheets/StatsHeader.css';
 
-const StatsHeader = ({ playerStats }) => {
+const StatsHeader = ({ playerStats } = {}) => {
   return (
     <div className="StatsHeader">
       <div className="statContainer">

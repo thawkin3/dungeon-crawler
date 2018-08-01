@@ -121,7 +121,7 @@ class App extends Component {
       if (cells[y][x] === 'open') {
         cells[y][x] = type;
         if (type === 'enemy') {
-          enemyTracker[y] = {};
+          enemyTracker[y] = enemyTracker[y] || {};
           enemyTracker[y][x] = {
             health: Math.floor(Math.random() * 50),
             attack: Math.floor(Math.random() * 50),
@@ -233,8 +233,8 @@ class App extends Component {
           this.setState(prevState => {
             let enemyDied = false;
             let newEnemyCoordinates = {};
-            newEnemyCoordinates[newYPosition] = {};
-            newEnemyCoordinates[newYPosition][newXPosition] = {...prevState.enemyCoordinates[newYPosition][newXPosition]};
+            newEnemyCoordinates[newYPosition] = { ...prevState.enemyCoordinates[newYPosition] };
+            newEnemyCoordinates[newYPosition][newXPosition] = { ...prevState.enemyCoordinates[newYPosition][newXPosition] };
             newEnemyCoordinates[newYPosition][newXPosition].health -= prevState.playerStats.attack;
             if (newEnemyCoordinates[newYPosition][newXPosition].health <= 0 || isNaN(newEnemyCoordinates[newYPosition][newXPosition].health)) {
               enemyDied = true;

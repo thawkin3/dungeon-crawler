@@ -29,8 +29,8 @@ class App extends Component {
       playerLost: false,
       playerWon: false,
       playerStats: {},
-      bossStats: {}
-    }
+      bossStats: {},
+    };
 
     // bind your methods
     this.generateNewGame = this.generateNewGame.bind(this);
@@ -65,8 +65,8 @@ class App extends Component {
   generateNewGame() {
     // set your viewport center
     let viewportCenter = {
-      x: this.boardWidth/2,
-      y: this.boardHeight/2
+      x: this.boardWidth / 2,
+      y: this.boardHeight / 2,
     };
 
     // set your player stats
@@ -75,13 +75,13 @@ class App extends Component {
       weapon: this.weapons[0],
       attack: 10,
       level: 1,
-      xpLeft: 40
+      xpLeft: 40,
     };
 
     // set your boss stats
     let bossStats = {
       health: 300,
-      attack: 80
+      attack: 80,
     };
 
     // build the walls and open spaces
@@ -109,22 +109,22 @@ class App extends Component {
       playerStats: playerStats,
       bossStats: bossStats,
       cells: cells,
-      enemyCoordinates: enemyCoordinates
+      enemyCoordinates: enemyCoordinates,
     });
   }
 
   // adds pieces to the board
   pieceGenerator(type, numberToPlace, cells, enemyTracker) {
     while (numberToPlace > 0) {
-      let x = Math.floor(Math.random() * (this.boardWidth-2)) + 1;
-      let y = Math.floor(Math.random() * (this.boardHeight-2)) + 1;
+      let x = Math.floor(Math.random() * (this.boardWidth - 2)) + 1;
+      let y = Math.floor(Math.random() * (this.boardHeight - 2)) + 1;
       if (cells[y][x] === 'open') {
         cells[y][x] = type;
         if (type === 'enemy') {
           enemyTracker[y] = {};
           enemyTracker[y][x] = {
             health: Math.floor(Math.random() * 50),
-            attack: Math.floor(Math.random() * 50)
+            attack: Math.floor(Math.random() * 50),
           }
 
         }
@@ -136,7 +136,7 @@ class App extends Component {
   // starts the game
   startGame() {
     this.setState({
-      gameIsPlaying: true
+      gameIsPlaying: true,
     });
   }
 
@@ -145,7 +145,7 @@ class App extends Component {
     this.setState({
       gameIsPlaying: true,
       playerWon: false,
-      playerLost: false
+      playerLost: false,
     });
   }
 
@@ -154,16 +154,16 @@ class App extends Component {
     let vector = '';
     switch (e.keyCode) {
       case 37:    // left
-        vector = {x: -1, y: 0};
+        vector = { x: -1, y: 0 };
         break;
       case 38:    // up
-        vector = {x: 0, y: -1};
+        vector = { x: 0, y: -1 };
         break;
       case 39:    // right
-        vector = {x: 1, y: 0};
+        vector = { x: 1, y: 0 };
         break;
       case 40:    // down
-        vector = {x: 0, y: 1};
+        vector = { x: 0, y: 1 };
         break;
       default:
         vector = '';
@@ -179,14 +179,12 @@ class App extends Component {
           // do nothing
           break;
         case 'open':
-          this.setState(prevState => {
-            return {
-              viewportCenter: {
-                x: prevState.viewportCenter.x + vector.x,
-                y: prevState.viewportCenter.y + vector.y
-              }
-            }
-          });
+          this.setState(prevState => ({
+            viewportCenter: {
+              x: prevState.viewportCenter.x + vector.x,
+              y: prevState.viewportCenter.y + vector.y,
+            },
+          }));
           break;
         case 'food':
           this.setState(prevState => {
@@ -199,13 +197,13 @@ class App extends Component {
             return {
               viewportCenter: {
                 x: prevState.viewportCenter.x + vector.x,
-                y: prevState.viewportCenter.y + vector.y
+                y: prevState.viewportCenter.y + vector.y,
               },
               playerStats: {
                 ...prevState.playerStats,
-                health: prevState.playerStats.health + 20
+                health: prevState.playerStats.health + 20,
               },
-              cells: newCells
+              cells: newCells,
             }
           });
           break;
@@ -220,14 +218,14 @@ class App extends Component {
             return {
               viewportCenter: {
                 x: prevState.viewportCenter.x + vector.x,
-                y: prevState.viewportCenter.y + vector.y
+                y: prevState.viewportCenter.y + vector.y,
               },
               playerStats: {
                 ...prevState.playerStats,
                 attack: prevState.playerStats.attack + 20,
-                weapon: this.weapons[this.weapons.indexOf(prevState.playerStats.weapon) + 1]
+                weapon: this.weapons[this.weapons.indexOf(prevState.playerStats.weapon) + 1],
               },
-              cells: newCells
+              cells: newCells,
             }
           });
           break;
@@ -254,22 +252,22 @@ class App extends Component {
             return {
               viewportCenter: {
                 x: enemyDied ? prevState.viewportCenter.x + vector.x : prevState.viewportCenter.x,
-                y: enemyDied ? prevState.viewportCenter.y + vector.y : prevState.viewportCenter.y
+                y: enemyDied ? prevState.viewportCenter.y + vector.y : prevState.viewportCenter.y,
               },
               playerStats: {
                 ...prevState.playerStats,
                 attack: xpLeft === 0 ? prevState.playerStats.attack + 20 : prevState.playerStats.attack,
                 health: xpLeft === 0 ? healthLeft + 50 : healthLeft,
                 xpLeft: xpLeft === 0 ? 40 : xpLeft,
-                level: xpLeft === 0 ? prevState.playerStats.level + 1 : prevState.playerStats.level
+                level: xpLeft === 0 ? prevState.playerStats.level + 1 : prevState.playerStats.level,
               },
               cells: enemyDied ? newCells : prevState.cells,
               enemyCoordinates: {
                 ...prevState.enemyCoordinates,
-                ...newEnemyCoordinates
+                ...newEnemyCoordinates,
               },
               playerLost: healthLeft === 0,
-              gameIsPlaying: !(healthLeft === 0)
+              gameIsPlaying: !(healthLeft === 0),
             }
           });
           break;
@@ -287,15 +285,15 @@ class App extends Component {
             return {
               playerStats: {
                 ...prevState.playerStats,
-                health: healthLeft
+                health: healthLeft,
               },
               bossStats: {
                 health: bossHealth,
-                attack: prevState.bossStats.attack
+                attack: prevState.bossStats.attack,
               },
               playerLost: healthLeft === 0,
               playerWon: bossDied,
-              gameIsPlaying: !(healthLeft === 0) && !bossDied
+              gameIsPlaying: !(healthLeft === 0) && !bossDied,
             }
           });
           break;
@@ -324,13 +322,15 @@ class App extends Component {
               { this.state.gameIsPlaying && (
                 <div>
                   <StatsHeader playerStats={this.state.playerStats} />
-                  <GameBoard cells={this.state.cells} 
+                  <GameBoard
+                    cells={this.state.cells} 
                     boardWidth={this.boardWidth} 
                     boardHeight={this.boardHeight}
                     visibleSizeWidth={this.visibleSizeWidth}
                     visibleSizeHeight={this.visibleSizeHeight}
                     viewportCenter={this.state.viewportCenter}
-                    moveViewportCenter={this.moveViewportCenter} />
+                    moveViewportCenter={this.moveViewportCenter}
+                  />
                   <InfoKey />
                 </div>
               )}

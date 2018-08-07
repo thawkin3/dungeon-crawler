@@ -1,6 +1,6 @@
-## Dungeon Crawler
+# Dungeon Crawler
 
-### How to play
+## How to play
 
 You are trapped in a dungeon, armed with only a stick. Find food to increase your health, pick up new weapons to increase your attack power, and defeat enemies to gain experience and level up. Defeat the main boss to escape the dungeon!
 
